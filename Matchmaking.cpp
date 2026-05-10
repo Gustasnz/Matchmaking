@@ -3,9 +3,12 @@
 using namespace std;
 
 Matchmaking::Matchmaking(){
+    players = new Player[MAX_PLAYERS];
     size = 0;
 }
-Matchmaking::~Matchmaking(){};
+Matchmaking::~Matchmaking(){
+    delete[] players;
+};
 
 bool Matchmaking::insert(Player player){
     if (this->size < MAX_PLAYERS){
@@ -41,9 +44,9 @@ void Matchmaking::sortByScoreInsertion(){
 }
 
 Player* MergeSort(Player arr[],int n){
-    if(n == 1){
+    if(n <= 1){
         Player* base = new Player[1];
-        base[0] = arr[0];
+        if (n == 1) base[0] = arr[0];
         return base;
     }
     int mid = n/2;
@@ -80,27 +83,39 @@ void Matchmaking::sortByScoreMerge(){
     } delete[] sorted;
 }
 
-Player* Matchmaking::formGroup(int groupSize, int delta, int* n){
+Player* Matchmaking::formGroup(int groupSize, int delta, int* n) {
     *n = 0;
-    if (groupSize > this->size) {
-        return nullptr;
-    }
-    for (int i = 0; i <= this->size - groupSize; i++) {
-        int minScore = this->players[i].getScore();
-        int maxScore = this->players[i + groupSize - 1].getScore();
+
+    if (size < groupSize) return nullptr;
+
+    sortByScoreMerge(); // IMPORTANT: ensure sorted state
+
+    for (int i = 0; i <= size - groupSize; i++) {
+
+        int minScore = players[i].getScore();
+        int maxScore = players[i + groupSize - 1].getScore();
+
         if (maxScore - minScore <= delta) {
-            Player* match = new Player[groupSize];
+
+            Player* group = new Player[groupSize];
+
             for (int j = 0; j < groupSize; j++) {
-                match[j] = this->players[i + j];
+                group[j] = players[i + j];
             }
+
+            // SHIFT LEFT SAFELY
             for (int j = i; j < size - groupSize; j++) {
-                this->players[j] = this->players[j + groupSize];
+                players[j] = players[j + groupSize];
             }
+
             size -= groupSize;
             *n = groupSize;
-            return match;
+
+            return group;
         }
-    } return nullptr;
+    }
+
+    return nullptr;
 }
 
 Player* Matchmaking::getWaitingPlayers(int* n){

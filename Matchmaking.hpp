@@ -4,8 +4,8 @@ const int MAX_PLAYERS = 100000;
 class Matchmaking {
 
 private:
-    Player players[MAX_PLAYERS];
-    int size = 0;
+    Player* players;
+    int size;
 
 public:
     Matchmaking();
