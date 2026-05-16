@@ -37,9 +37,5 @@ int main() {
     std::cout << "\nTIME OF INSERTION_SORT for " <<sizes[j]<<" players:\n";
     std::chrono::duration<double, std::milli> msg = end - start;
     std::cout << msg.count() << " ms\n";
-}
-
-   
-
-    return 0;
+    } return 0;
 }
