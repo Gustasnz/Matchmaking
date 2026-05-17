@@ -47,7 +47,7 @@ Para compilar o projeto, utilize:
 ```bash
 g++ main.cpp Matchmaking.cpp Player.cpp -o matchmaking && g++ compare.cpp Matchmaking.cpp Player.cpp -o compare
 ```
-
+---
 ### Testes de Funcionamento e Desempenho
 
 Após a compilação, para a execução dos testes de funcionamento do sistema (inserção e remoção de jogadores, ordenação das filas, etc.) basta efetuar:

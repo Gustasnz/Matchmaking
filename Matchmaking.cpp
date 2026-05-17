@@ -124,7 +124,7 @@ Player* Matchmaking::getWaitingPlayers(int* n){
 
 void Matchmaking::printWaitingPlayers(){
     if (size == 0) {
-        cout << "No players...\n";
+        cout << "Sem jogadores...\n";
         return;
     }
     for (int i = 0; i < size; i++) {
@@ -133,7 +133,6 @@ void Matchmaking::printWaitingPlayers(){
             << players[i].getId() << " | "
             << players[i].getName() << " | "
             << players[i].getScore() << " | "
-            << players[i].getTimestamp()
-            << "]\n";
+            << players[i].getTimestamp() << "]\n";
     }
 };
